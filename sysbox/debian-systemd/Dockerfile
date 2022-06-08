@@ -38,8 +38,8 @@ RUN apt-get update &&                            \
        /usr/share/local/* &&                                          \
                                                                       \
     # Create default user
-    useradd --create-home --shell /bin/bash citadel &&                \
-    echo "citadel:freedom" | chpasswd && adduser citadel sudo
+    useradd --create-home --shell /bin/bash dev &&                \
+    echo "dev:pass" | chpasswd && adduser dev sudo
 
 
 FROM systemd as docker
@@ -47,8 +47,8 @@ FROM systemd as docker
 # Sshd install
 RUN apt-get update && apt-get install --no-install-recommends -y      \
             openssh-server &&                                         \
-    mkdir /home/citadel/.ssh &&                                       \
-    chown citadel:citadel /home/citadel/.ssh
+    mkdir /home/dev/.ssh &&                                       \
+    chown dev:dev /home/dev/.ssh
 
 
 # Expose SSH and HTTP ports

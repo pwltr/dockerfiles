@@ -1,24 +1,6 @@
-# Sample container image with Ubuntu Jammy + Systemd
-#
-# Description:
-#
-# This image serves as a basic reference example for user's looking to
-# run Systemd inside a system container in order to deploy various
-# services within the system container, or use it as a virtual host
-# environment.
-#
-# Usage:
-#
-# $ docker run --runtime=sysbox-runc -it --rm --name=syscont nestybox/ubuntu-jammy-systemd
-#
-# This will run systemd and prompt for a user login; the default user/password
-# in this image is "admin/admin".
-
 FROM ubuntu:jammy
 
-#
-# Systemd installation
-#
+# Install Systemd, Avahi
 RUN apt-get update &&                            \
     apt-get install -y --no-install-recommends   \
             systemd                              \
@@ -28,6 +10,7 @@ RUN apt-get update &&                            \
             dbus                                 \
             iptables                             \
             iproute2                             \
+            avahi-daemon                         \
             kmod                                 \
             locales                              \
             sudo                                 \
@@ -48,8 +31,8 @@ RUN apt-get update &&                            \
        /usr/share/man/*                                               \
        /usr/share/local/* &&                                          \
                                                                       \
-    # Create default 'admin/admin' user
-    useradd --create-home --shell /bin/bash admin && echo "admin:admin" | chpasswd && adduser admin sudo
+    # Create default 'dev/dev' user
+    useradd --create-home --shell /bin/bash dev && echo "dev:pass" | chpasswd && adduser dev sudo
 
 # Make use of stopsignal (instead of sigterm) to stop systemd containers.
 STOPSIGNAL SIGRTMIN+3
