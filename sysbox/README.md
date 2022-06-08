@@ -21,13 +21,15 @@ docker build -t <image-tag> - < ./<path>/Dockerfile
 docker run --detach --publish-all --runtime sysbox-runc --name <name> --hostname <name> <image-tag>
 ```
 
-### Connect via SSH
+### Log into a container
 
 Find out container SSH port
 
 ```shell
 docker container inspect --format='{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}' <container-name>
 ```
+
+Connect via SSH
 
 ```shell
 ssh dev@172.17.0.1 -p <port>
