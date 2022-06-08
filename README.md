@@ -20,7 +20,7 @@ docker build -t <image-tag> - < ./<path>/Dockerfile
 docker run --detach --publish-all --name <name> --hostname <name> <image-tag>
 ```
 
-### Log into the container
+### Log into a container
 
 Find out container SSH port
 
